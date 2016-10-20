@@ -61,11 +61,10 @@ server <- shinyServer(function(input, output) {
     }
     else{
       if (files()$type == "image/png") {
-        ima <- readPNG(files()$datapath)
+        ima <- readPNG(files()$datapath, native = T)
       } else if (files()$type == "image/jpeg") {
-        ima <- readJPEG(files()$datapath)
+        ima <- readJPEG(files()$datapath, native = T)
       }
-      
     }
   })
   # Extracts width and height
@@ -83,16 +82,16 @@ server <- shinyServer(function(input, output) {
     lim <- par()
     rasterImage(ima(), lim$usr[1], lim$usr[3], lim$usr[2], lim$usr[4])
     if (value$origin$x != 0 || value$origin$y != 0) {
-      points(value$origin$x,value$origin$y,pch=10,cex=4, col="black",lwd=2)
+      points(value$origin$x,value$origin$y,pch=3,cex=5, col="black",lwd=3)
     }
     if (value$abscissa$x != 1 || value$abscissa$y != 0) {
-      points(value$abscissa$x,value$abscissa$y,pch=10,cex=4, col="blue",lwd=2)
+      points(value$abscissa$x,value$abscissa$y,pch=3,cex=5, col="blue",lwd=3)
     }
     if (value$ordinate$x != 0 || value$ordinate$y != 1) {
-      points(value$ordinate$x,value$ordinate$y,pch=10,cex=4, col="green",lwd=2)
+      points(value$ordinate$x,value$ordinate$y,pch=3,cex=5, col="green",lwd=3)
     }
     if (nrow(value$curve) != 1) {
-      points(value$curve$x,value$curve$y,pch=10,cex=2, col=(value$curve$n+1),lwd=1)
+      points(value$curve$x,value$curve$y,pch=10,cex=3, col=(value$curve$n+1),lwd=2)
     }
     input$confirm
   })
